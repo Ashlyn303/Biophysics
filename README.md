@@ -5,8 +5,7 @@ This repository incorporates several tools that enable the analysis of transport
 ## Scripts Description
 
 **1. Image_detect_20_segments.py**
-
-Process time-lapse confocal images.
+:Process time-lapse confocal images.
 
 Starts from defining the crystal edges in the image, followed by segemented data into 20 sections across z- and y-direction of tranportation. Finally, converted light intensity to estimated dsDNA concentration from 3-parameters standard curve equation and save data into .csv file.
 
