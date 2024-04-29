@@ -16,13 +16,13 @@ Calculating a range of diffusion rate constant through Fick's law.
 
 Starts from calculating accumulation rates (RA) and driving force (DF) for all position and all time points for each segmented data. Followed by plotting RA vs DF and calculate the slope as diffusion rate constant. Finally, store all diffusion rate constant along with its position and time points to .csv file.
 
-**3. Whisker_plot.py**
+### 3. Whisker_plot.py
 
 Alanlysis of diffusion rate constants from Fick's law implementation.
 
 Plot data os diffusion rate constant as whisker plot and calculate the medium value of diffusion rate constant for each segmented data.
 
-**4. FVM.py**
+### 4. FVM.py
 
 Validate the medium diffusion rate constant by fitting data with finite volume model (FVM). Included two files, FVM_1D_Dl_Dr.py and FVM_Function.py.
 
