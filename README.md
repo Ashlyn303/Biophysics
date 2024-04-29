@@ -26,4 +26,4 @@ Plot data of diffusion rate constant from folder Whisker_plot_csv as whisker plo
 
 Validate the medium diffusion rate constant by fitting data with finite volume model (FVM). Included two files, FVM_1D_Dl_Dr.py and FVM_Function.py.
 
-Assigned medium diffusion rate values to parameteres of Dl (Diffusion rate of left edge) and Dr (Diffusion rate of left edge). Run the script FVM_1D_Dl_Dr.py by using finite volume model (FVM) and boundary concentration as a function of time. Finally, calculate sum of squared deviation (SSD) of each segmented data fitting to FVM.
+Assigned medium diffusion rate values to parameteres of Dl (Diffusion rate of left edge) and Dr (Diffusion rate of left edge). Run the script FVM_1D_Dl_Dr.py by using finite volume model (FVM) and boundary concentration (folder Crystal_csv) as a function of time. Finally, calculate sum of squared deviation (SSD) of each segmented data fitting to FVM.
