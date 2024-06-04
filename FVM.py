@@ -30,35 +30,42 @@ mpl.rcParams['lines.markersize'] = 10
 
 start_time = time.time()
 
-file_path = 'Crystal_csv/'  # File path
-xtal_fold_to_run = [6, 2]  
+file_path = 'new_Crystal_csv/'  # File path
+file_path_2 = 'new_Crystal_smooth_csv/'  # File path
+
+save_file_path = 'savefig/05_FVM/'
+
 
 'Crystal1'
-xtal = 'C1'                                # Crystal ID
-Lp = 27.2*10**-4                           # Length of nanopore (μm)
-name = file_path+'Crystal1_fold'           # File path to images csv data
-nameBC_l = file_path+'Crystal1_fold_left'  # File path to left boundary images csv data
-nameBC_r = file_path+'Crystal1_fold_right' # File path to right boundary images csv data
-Dpi_l = [4.59e-09, 2.40e-09, 2.29e-09, 2.49e-09, 2.22e-09, 2.93e-09, 3.42e-09, 4.26e-09] # Diffusion rate of left boundary
-Dpi_r = [3.11e-09, 1.68e-09, 1.46e-09, 1.47e-09, 1.51e-09, 2.03e-09, 2.14e-09, 2.49e-09] # Diffusion rate of right boundary
+# xtal = 'C1'                                # Crystal ID
+# Lp = 27.2*10**-4                           # Length of nanopore (μm)
+# name = file_path+'Crystal1_fold'           # File path to images csv data
+# nameBC_l = file_path+'Crystal1_fold_left'  # File path to left boundary images csv data
+# nameBC_r = file_path+'Crystal1_fold_right' # File path to right boundary images csv data
+# Dpi_l = [3.0439701656946353e-09, 2.0572602922671336e-09, 2.3957736416120542e-09, 2.27393803936258e-09, 1.9084931190703314e-09, 2.708628747564717e-09, 2.8640443749237903e-09, 3.406312669816462e-09]
+# Dpi_r = [6.372882544781162e-09, 3.3139655255964863e-09, 2.161954261464783e-09, 2.0675907424289487e-09, 2.3413439567249504e-09, 3.2544289068622564e-09, 3.4431618813761742e-09, 4.301770232736738e-09]
+# xtal_fold_to_run = [1, 5]   #[Best fit, Worst fit] SSD=[7.97e-15, 1.46e-14]
+
 
 'Crystal2'
-# xtal = 'C2'                              # Crystal ID
-# Lp = 20.4*10**-4                         # Length of nanopore (μm)
-# name = file_path+'Crystal2_fold'         # File path to images csv data
-# nameBC_l = file_path+'Crystal2_left'     # File path to left boundary images csv data
-# nameBC_r = file_path+'Crystal2_right'    # File path to right boundary images csv data
-# Dpi_l = [2.43e-09, 2.22e-09, 1.88e-09, 2.53e-09, 2.96e-09, 3.06e-09, 2.94e-09, 4.92e-09] # Diffusion rate of left boundary
-# Dpi_r = [6.91e-09, 4.10e-09, 3.72e-09, 2.97e-09, 2.25e-09, 2.37e-09, 3.20e-09, 4.79e-09] # Diffusion rate of right boundary
+xtal = 'C2'                              # Crystal ID
+Lp = 20.4*10**-4                         # Length of nanopore (μm)
+name = file_path+'Crystal2_fold'         # File path to images csv data
+nameBC_l = file_path+'Crystal2_fold_left'     # File path to left boundary images csv data
+nameBC_r = file_path+'Crystal2_fold_right'    # File path to right boundary images csv data
+Dpi_l = [3.7873724528370184e-09, 3.782379304885544e-09, 2.9057318978610903e-09, 2.8095959555695562e-09, 3.316526603608882e-09, 3.130296230995199e-09, 3.9177986733176005e-09, 4.667938966173201e-09]
+Dpi_r = [4.743973417099125e-09, 2.880165676066599e-09, 2.9041696560652437e-09, 2.801303183615771e-09, 2.426148850482564e-09, 1.985368144836361e-09, 2.0655052294953742e-09, 2.808836168379461e-09]
+xtal_fold_to_run = [4, 1]  #[Best fit, Worst fit] SSD=[3.62e-15, 6.77e-15]
 
 'Crystal3'
 # xtal = 'C3'                              # Crystal ID
 # Lp = 61.88*10**-4                        # Length of nanopore (μm)
 # name = file_path+'Crystal3_fold'         # File path to images csv data
-# nameBC_l = file_path+'Crystal3_left'     # File path to left boundary images csv data
-# nameBC_r = file_path+'Crystal3_right'    # File path to right boundary images csv data
-# Dpi_l = [1.16e-08, 1.05e-08, 1.01e-08, 8.99e-09, 9.32e-09, 1.08e-08, 1.22e-08, 1.38e-08] # Diffusion rate of left boundary
-# Dpi_r = [1.26e-08, 1.11e-08, 1.07e-08, 1.09e-08, 1.13e-08, 1.24e-08, 1.26e-08, 1.47e-08] # Diffusion rate of right boundary
+# nameBC_l = file_path+'Crystal3_fold_left'     # File path to left boundary images csv data
+# nameBC_r = file_path+'Crystal3_fold_right'    # File path to right boundary images csv data
+# Dpi_l = [1.08388336330001e-08, 1.1392962467143132e-08, 1.0411626663017834e-08, 9.599432805857126e-09, 1.0798327995178489e-08, 1.1918750586006434e-08, 1.4580069399939753e-08, 1.7158081786293558e-08]
+# Dpi_r = [1.4328297126743272e-08, 1.1470087790857829e-08, 1.2561026433600456e-08, 1.1998487945197064e-08, 1.13528943434993e-08, 1.2337262533992742e-08, 1.2083042156800448e-08, 1.3100433347135533e-08]
+# xtal_fold_to_run = [4, 8]   #[Best fit, Worst fit] SSD=[6.43e-15, 1.60e-14]
 
 print('Average Diffusion Coefficient = {0:.2e}±{1:.2e}'.format(np.mean(Dpi_l+Dpi_r), np.std(Dpi_l+Dpi_r)))
 
@@ -82,6 +89,8 @@ Csol = 5e-10
 Bmax = 3.13e-5
 
 err_vec = []
+# for xtal_fold_i in range(8):
+    # xtal_fold_i+=1
 for xtal_fold_i in xtal_fold_to_run:
     
     Dpore_l = Dpi_l[xtal_fold_i-1]
@@ -110,7 +119,9 @@ for xtal_fold_i in xtal_fold_to_run:
     Images_filename = name + str(xtal_fold_i) + '_images_data.csv'
     Images_BC_filename_l = nameBC_l + str(xtal_fold_i) + '_images_BC_data.csv'
     Images_BC_filename_r = nameBC_r + str(xtal_fold_i) + '_images_BC_data.csv'
-
+    # Images_BC_filename_l = nameBC_l + str(xtal_fold_i) + '_images_smooth_BC_data.csv'
+    # Images_BC_filename_r = nameBC_r + str(xtal_fold_i) + '_images_smooth_BC_data.csv'
+    
     Images_data = pd.read_csv(Images_filename, delimiter=',')
 
     Images_BC1_data_l = pd.read_csv(Images_BC_filename_l, delimiter=',')
@@ -118,7 +129,8 @@ for xtal_fold_i in xtal_fold_to_run:
 
     Images_BC1_data_r = pd.read_csv(Images_BC_filename_r, delimiter=',')
     Image_BC_ave_data_r = Images_BC1_data_r.iloc[:, -1][::-1]
-
+    
+    C0 = Images_data.values[0, :]
     C0 = np.concatenate((C0, np.repeat(0, Nz)), axis=0)
 
     'BSpline fit BC'
@@ -150,6 +162,7 @@ for xtal_fold_i in xtal_fold_to_run:
             BC_conc_r, [BC_max_r, BC_max_r, BC_max_r, BC_max_r, BC_max_r])
         BC_spline_func_r = UnivariateSpline(
             t_time, uniform_filter1d(BC_conc_r, size=1), k=3)
+        
 
     elif xtal == 'C2':
         'Left'
@@ -207,8 +220,10 @@ for xtal_fold_i in xtal_fold_to_run:
             a0.plot(t_eval, uniform_filter1d(Image_BC_Conc_l*1e6, size=1), 'co')
             a0.plot(t_new, c_new*1e6, '-', color='tab:orange', linewidth=3)
             plt.xlabel('Time [sec]')
-            plt.ylabel('Concentration [mmole/L]')
+            plt.ylabel('Concentration [mM]')
             a0.tick_params(direction="in", length=4, width=3)
+            fig1.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_FVM_BC_spline_fit_left.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
            
     'Spline function of right boundary and plot'
     t_new = np.linspace(t_eval[0], t_eval[-1], 100)
@@ -220,8 +235,10 @@ for xtal_fold_i in xtal_fold_to_run:
             a0.plot(t_eval, uniform_filter1d(Image_BC_Conc_r*1e6, size=1), 'co')
             a0.plot(t_new, c_new*1e6, '-', color='tab:orange', linewidth=3)
             plt.xlabel('Time [sec]')
-            plt.ylabel('Concentration [mmole/L]')
+            plt.ylabel('Concentration [mM]')
             a0.tick_params(direction="in", length=4, width=3)
+            fig1.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_FVM_BC_spline_fit_right.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
 
     'BSpline fit Xtal BC'
     Xtal_BC = Images_data.iloc[:, 0]
@@ -262,7 +279,7 @@ for xtal_fold_i in xtal_fold_to_run:
     """
     Labels_X1 = 'z-position [\u03BCm]'  # mu: \u03BC
     Labels_X2 = 'Time [sec]'  # mu: \u03BC
-    Labels_Y = 'Concentration [mmole/L]'
+    Labels_Y = 'Concentration [mM]'
     Title = ['BDF - Bounded - Diffusion at various time', 'BDF - Unbounded - Diffusion at various time',
              'BDF - Bounded + Unbounded - Diffusion at various time']
     color = ['b-', 'r-', 'g-', 'y-', 'k-', 'm-', 'c-']
@@ -324,6 +341,8 @@ for xtal_fold_i in xtal_fold_to_run:
                               mode=None, fancybox=True)
             plt.gca().add_artist(leg1)
             plt.show()
+            fig.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_result_all.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
 
     'Plot 2: data taken just inside the crystal at the left boundary x = 0'
     for _ in xtal_fold_to_run:
@@ -345,8 +364,10 @@ for xtal_fold_i in xtal_fold_to_run:
             plt.ylabel(Labels_Y)
             ax.tick_params(direction="in", length=4, width=3)
             plt.show()
+            fig.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_left.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
             
-    'Plot 3: data taken just inside the crystal at the left boundary x = Lp'
+    'Plot 3: data taken just inside the crystal at the right boundary x = Lp'
     for _ in xtal_fold_to_run:
         if xtal_fold_i == _:
             fig = plt.figure()
@@ -368,6 +389,8 @@ for xtal_fold_i in xtal_fold_to_run:
             plt.ylabel(Labels_Y)
             ax.tick_params(direction="in", length=4, width=3)
             plt.show()
+            fig.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_right.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
 
     'Plot 4: data taken in the middle of the crystal x = L/2'
     for _ in xtal_fold_to_run:
@@ -393,6 +416,8 @@ for xtal_fold_i in xtal_fold_to_run:
                 'model', 'data'], loc='upper left', bbox_to_anchor=(
                 1, 1), shadow=True, mode=None, fancybox=True)
             plt.show()
+            fig.savefig(save_file_path +str(xtal)+'_stripe'+str(xtal_fold_i)+'_middle.svg',
+                         format='svg', dpi=400,  bbox_inches='tight')
            
 print('SSD = ')
 for _ in err_vec:

@@ -46,11 +46,10 @@ def cmap_generation(length):
     my_cmap = mpl.colors.ListedColormap(colors)
     return my_cmap
 
-save_file_path_1 = 'savefig/02_Ficks_Law_Implementation/001'
-save_file_path_2 = 'savefig/02_Ficks_Law_Implementation/002'
-save_file_path_3 = 'savefig/02_Ficks_Law_Implementation/003'
-
-save_fig_1 = True  # DNA vs z-direction
+save_file_path_1 = 'savefig/02_Ficks_Law_Implementation/'
+save_file_path_2 = 'savefig/03_Ficks_Law_Concentration/'
+# save_file_path_3 = 'savefig/02_Ficks_Law_Implementation/003'
+# save_fig_1 = True  # DNA vs z-direction
 save_fig_2 = True  # RA vs DF & Amomalous map
 save_fig_3 = True   # RA vs DF & Amomalous map + Whisker Outliers
 
@@ -76,10 +75,20 @@ all_name123 = [name01, name02, name03]
 all_Lp123 = [Lp1, Lp2, Lp3]
 all_xtal123 = ['C1', 'C2', 'C3']
 
-# all_Crystal_num = [1.0]
-# all_name123 = [name01]
-# all_Lp123 = [Lp1]
-# all_xtal123 = ['C1']
+all_Crystal_num = [1.0]
+all_name123 = [name01]
+all_Lp123 = [Lp1]
+all_xtal123 = ['C1']
+
+# all_Crystal_num = [2.0]
+# all_name123 = [name02]
+# all_Lp123 = [Lp2]
+# all_xtal123 = ['C2']
+
+# all_Crystal_num = [3.0]
+# all_name123 = [name03]
+# all_Lp123 = [Lp3]
+# all_xtal123 = ['C3']
 
 _ = 0
 for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, all_Lp123):
@@ -122,10 +131,6 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
     with open(filename4_r, 'w') as csvfile:
         pass
 
-    # total_len_123l=0 
-    # total_len_123r=0 
-    # total_len_1234l=0 
-    # total_len_1234r=0 
     for xtal_fold_i in range(10):
         name1 = namei + str(xtal_fold_i)
         table_filename_l = 'Transport_tables/' + name1 + '_TransportTable_l.csv'
@@ -146,25 +151,25 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
         if xtal == 'C1':
             t_eval = [7, 127, 247, 367, 487, 607, 727, 847, 967,
                       1087, 1207, 1327, 1447, 1567, 1687, 1807]
-            if save_fig_1 == True:
-                mid_cutoff = 0
-            else:
-                mid_cutoff = 0#10
+            # if save_fig_1 == True:
+            #     mid_cutoff = 0
+            # else:
+            #     mid_cutoff = 0#10
 
         elif xtal == 'C2':
             t_eval = [7, 127, 247, 367, 487, 607, 727, 847, 967,
                       1087, 1207, 1327, 1447, 1567, 1687, 1807]
-            if save_fig_1 == True:
-                mid_cutoff = 0
-            else:
-                mid_cutoff = 0#5
+            # if save_fig_1 == True:
+            #     mid_cutoff = 0
+            # else:
+            #     mid_cutoff = 0#5
         elif xtal == 'C3':
             t_eval = [17, 137, 257, 377, 497, 617, 737, 857, 977,
                       1097, 1217, 1337, 1457, 1577, 1697, 1817]
-            if save_fig_1 == True:
-                mid_cutoff = 0
-            else:
-                mid_cutoff = 0#5
+            # if save_fig_1 == True:
+            #     mid_cutoff = 0
+            # else:
+            #     mid_cutoff = 0#5
         "Get image intensity from image detect"
 
         table_data_l = np.zeros([1, 8])
@@ -190,7 +195,7 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 Integral_trapz_r_1 = 0
                 dI_dz_r_1 = 0
 
-                for j in np.arange(int(Nz/2 - 1 - mid_cutoff)):
+                for j in np.arange(int(Nz/2 - 1)):
                     a = i+1  # time point: 1 - 14
                     b = j+1  # z-position: 1 - 49 (xtal edge to middle)
 
@@ -232,8 +237,6 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     depth_r = b*Lp/Nz*1e4  # um
                     position_r = Nz-b
 
-                    # Dl = Integral_trapz_l/dI_dz_l
-                    # Dr = Integral_trapz_r/dI_dz_r
                     Dl = (Integral_trapz_l-Integral_trapz_l_1)/(dI_dz_l-dI_dz_l_1)
                     Dr = (Integral_trapz_r-Integral_trapz_r_1)/(dI_dz_r-dI_dz_r_1)
                     Integral_trapz_l_1 = Integral_trapz_l
@@ -276,51 +279,6 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
             tables_data_r = pd.read_csv(table_filename_r, delimiter=',')
             tables_data_r.columns = ['dI_dz', 'Integral_trapz', 'D',
                                      'Conc', 'time_pt', 'position', 'depth', 'crystal']
-            'C1'
-            if xtal == 'C1':
-                if save_fig_1 == True:
-                    pass
-                elif save_fig_2 == True:
-                    pass
-                else:
-                    tables_data_l = tables_data_l.loc[tables_data_l['time_pt'] > t_eval[2]]
-                    tables_data_r = tables_data_r.loc[tables_data_r['time_pt'] > t_eval[2]]
-                    tables_data_l = tables_data_l.loc[tables_data_l['D'] > 0]
-                    tables_data_l = tables_data_l.loc[tables_data_l['D'] < 5e-8]
-                    tables_data_r = tables_data_r.loc[tables_data_r['D'] < 5e-8]
-                    tables_data_l = tables_data_l.drop(
-                        tables_data_l.loc[tables_data_l['time_pt'] == 1447].index)
-                    tables_data_r = tables_data_r.drop(
-                        tables_data_r.loc[tables_data_r['time_pt'] == 1447].index)
-                
-            'C2'
-            if xtal == 'C2':
-                if save_fig_1 == True:
-                    pass
-                elif save_fig_2 == True:
-                    pass
-                else:
-                    pass
-                    # tables_data_l = tables_data_l.loc[tables_data_l['time_pt'] < t_eval[-3]]
-                    # tables_data_l = tables_data_l.loc[tables_data_l['time_pt'] > t_eval[2]]
-                    # tables_data_r = tables_data_r.loc[tables_data_r['time_pt'] < t_eval[-3]]
-                    # tables_data_r = tables_data_r.loc[tables_data_r['time_pt'] > t_eval[2]]
-                    # tables_data_r = tables_data_r.loc[tables_data_r['D'] > 0]
-                    # tables_data_r = tables_data_r.loc[tables_data_r['D'] < 5e-8]
-                    # tables_data_l = tables_data_l.drop(
-                    #     tables_data_l.loc[tables_data_l['time_pt'] == 1087].index)
-                    # tables_data_r = tables_data_r.drop(
-                    #     tables_data_r.loc[tables_data_r['time_pt'] == 1087].index)
-            'C3'
-            if xtal == 'C3':
-                if save_fig_1 == True:
-                    pass
-                elif save_fig_2 == True:
-                    pass
-                else:
-                    pass
-                    # tables_data_l = tables_data_l.loc[tables_data_l['time_pt'] > t_eval[2]]
-                    # tables_data_r = tables_data_r.loc[tables_data_r['time_pt'] > t_eval[2]]
 
             table_filename123_l = pd.concat(
                 [table_filename123_l, tables_data_l])
@@ -374,31 +332,21 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
             if xtal == 'C1':
                 low_cut = 0.02
                 high_cut = 0.035
-                plot_data_conc_l =tables_data_l.drop(tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-4]].index)
-                plot_data_conc_l = plot_data_conc_l.loc[plot_data_conc_l['time_pt']>247]
-                plot_data_conc_r =tables_data_r.drop(tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-4]].index)
-                
+                plot_data_conc_l = tables_data_l
+                plot_data_conc_r = tables_data_r
             elif xtal == 'C2':
                 low_cut = 0.007
                 high_cut = 0.015
-                plot_data_conc_l =tables_data_l.drop(tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-7]].index)
-                plot_data_conc_l = plot_data_conc_l.loc[plot_data_conc_l['time_pt']>247]
-                plot_data_conc_l = plot_data_conc_l.loc[plot_data_conc_l['time_pt']<1567]
-                plot_data_conc_r =tables_data_r.drop(tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-7]].index)
-                plot_data_conc_r = plot_data_conc_r.loc[plot_data_conc_r['time_pt']>247]
-                plot_data_conc_r = plot_data_conc_r.loc[plot_data_conc_r['time_pt']<1567]
+                plot_data_conc_l = tables_data_l
+                plot_data_conc_r = tables_data_r
             elif xtal == 'C3':
                 low_cut = 0.025
                 high_cut = 0.05
                 plot_data_conc_l = tables_data_l
                 plot_data_conc_r = tables_data_r
-                plot_data_conc_l = plot_data_conc_l.loc[plot_data_conc_l['time_pt']>137]
-                plot_data_conc_l = plot_data_conc_l.loc[plot_data_conc_l['time_pt']<1577]
-                plot_data_conc_r = plot_data_conc_r.loc[plot_data_conc_r['time_pt']>17]
             
-            
-            plot_data_l_01 = plot_data_conc_l.loc[plot_data_conc_l['Conc'] <= low_cut]
-            plot_data_r_01 = plot_data_conc_r.loc[plot_data_conc_r['Conc'] <= low_cut]
+            plot_data_l_0 = plot_data_conc_l.loc[plot_data_conc_l['Conc'] <= low_cut]
+            plot_data_r_0 = plot_data_conc_r.loc[plot_data_conc_r['Conc'] <= low_cut]
             
             plot_data_l_1 = plot_data_conc_l.loc[(plot_data_conc_l['Conc'] > low_cut) & (plot_data_conc_l['Conc'] < high_cut)]
             plot_data_r_1 = plot_data_conc_r.loc[(plot_data_conc_r['Conc'] > low_cut) & (plot_data_conc_r['Conc'] < high_cut)]
@@ -418,8 +366,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
 
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ylim_l = ax.get_ylim()
             xlim_l = ax.get_xlim()
             ax.tick_params(direction="in", length=4, width=3)
@@ -427,18 +375,19 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_2+str(xtal)+'_001.svg', format='svg', dpi=400, bbox_inches='tight')
             
             Title = 'Left RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
-            print('Diffusion low conc = {0:.2e}'.format(np.median(plot_data_l_01['D'])))
+            print('Diffusion low conc = {0:.2e}'.format(np.median(plot_data_l_0['D'])))
             for i, ax in enumerate(axs.flat):       
-                plot_y_0 = plot_data_l_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_l_01['dI_dz']*1e6
-                plot_z_0 = plot_data_l_01['Conc']
+                plot_y_0 = plot_data_l_0['Integral_trapz']*1e6
+                plot_x_0 = plot_data_l_0['dI_dz']*1e6
+                plot_z_0 = plot_data_l_0['Conc']
                 plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
                 
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_l[0], ylim_l[1])
             ax.set_xlim(xlim_l[0], xlim_l[1])
@@ -446,10 +395,7 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
-                # if save_fig_2 == True:
-                #     pass
-                #     fig.savefig(save_dir_2+str(Crystal_num) +
-                #                 '002.svg', format='svg', dpi=400, bbox_inches='tight')
+                fig.savefig(save_file_path_2+str(xtal)+'_002.svg', format='svg', dpi=400, bbox_inches='tight')
                             
             Title = 'Left RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
@@ -459,8 +405,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 plot_x_1 = plot_data_l_1['dI_dz']*1e6
                 plot_z_1 = plot_data_l_1['Conc']
                 plot_c_1 = ax.scatter(plot_x_1, plot_y_1, c=plot_z_1, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_l[0], ylim_l[1])
             ax.set_xlim(xlim_l[0], xlim_l[1])
@@ -468,11 +414,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
-                # if save_fig_2 == True:
-                #     pass
-                #     fig.savefig(save_dir_2+str(Crystal_num) +
-                #                 '003.svg', format='svg', dpi=400, bbox_inches='tight')
-                    
+                fig.savefig(save_file_path_2+str(xtal)+'_003.svg', format='svg', dpi=400, bbox_inches='tight')
+
             Title = 'Left RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
             print('Diffusion high conc = {0:.2e}'.format(np.median(plot_data_l_2['D'])))
@@ -482,8 +425,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 plot_z_2 = plot_data_l_2['Conc']
                 plot_c_2 = ax.scatter(plot_x_2, plot_y_2, c=plot_z_2, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
 
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_l[0], ylim_l[1])
             ax.set_xlim(xlim_l[0], xlim_l[1])
@@ -491,6 +434,7 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_2+str(xtal)+'_004.svg', format='svg', dpi=400, bbox_inches='tight')
 
             'Right: RA vs DF: Conc'
             Title = 'Right: RA vs DF :Conc'
@@ -508,8 +452,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z,cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
 
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ylim_r = ax.get_ylim()
             xlim_r = ax.get_xlim()
@@ -517,25 +461,19 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_2+str(xtal)+'_005.svg', format='svg', dpi=400, bbox_inches='tight')
 
             Title = 'Right RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
-            print('Diffusion low conc = {0:.2e}'.format(np.median(plot_data_r_01['D'])))
+            print('Diffusion low conc = {0:.2e}'.format(np.median(plot_data_r_0['D'])))
             for i, ax in enumerate(axs.flat):       
-                plot_y_0 = plot_data_r_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_r_01['dI_dz']*1e6
-                plot_z_0 = plot_data_r_01['Conc']
+                plot_y_0 = plot_data_r_0['Integral_trapz']*1e6
+                plot_x_0 = plot_data_r_0['dI_dz']*1e6
+                plot_z_0 = plot_data_r_0['Conc']
                 plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
-            
-            if xtal == 'C1':
-                plot_data_r_010 =plot_data_r_01.loc[plot_data_r_01['time_pt'] == 487]
-                plot_y_00 = plot_data_r_010['Integral_trapz']*1e6
-                plot_x_00 = plot_data_r_010['dI_dz']*1e6
-                plot_z_00 = plot_data_r_010['Conc']
-                plot_c_00 = ax.scatter(plot_x_00, plot_y_00, c=plot_z_00, marker='^', s=20, vmin=vmin, vmax=vmax)
-            
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_r[0], ylim_r[1])
             ax.set_xlim(xlim_r[0], xlim_r[1])
@@ -543,6 +481,7 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_2+str(xtal)+'_006.svg', format='svg', dpi=400, bbox_inches='tight')
 
             Title = 'Right RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
@@ -552,24 +491,18 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 plot_x_1 = plot_data_r_1['dI_dz']*1e6
                 plot_z_1 = plot_data_r_1['Conc']
                 plot_c_1 = ax.scatter(plot_x_1, plot_y_1, c=plot_z_1, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
-            
-            if xtal == 'C1':
-                    plot_data_r_10 =plot_data_r_1.loc[plot_data_r_1['time_pt'] == 487]
-                    plot_y_10 = plot_data_r_10['Integral_trapz']*1e6
-                    plot_x_10 = plot_data_r_10['dI_dz']*1e6
-                    plot_z_10 = plot_data_r_10['Conc']
-                    plot_c_10 = ax.scatter(plot_x_10, plot_y_10, c=plot_z_10, marker='^', s=20, vmin=vmin, vmax=vmax)
-            
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_r[0], ylim_r[1])
             ax.set_xlim(xlim_r[0], xlim_r[1])
             fig.colorbar(plot_c_1, ax=ax, label='DNA duplexes/UNC').ax.tick_params(
                 length=4, width=3)
-            if xtal_fold_i == 1:
+            if xtal_fold_i == 4:
                 plt.show()
-  
+                fig.savefig(save_file_path_2+str(xtal)+'_007.svg', format='svg', dpi=400, bbox_inches='tight')
+
             Title = 'Right RA vs DF: Conc'
             fig, axs = plt.subplots(squeeze=False)
             print('Diffusion high conc = {0:.2e}'.format(np.median(plot_data_r_2['D'])))
@@ -578,22 +511,9 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 plot_x_2 = plot_data_r_2['dI_dz']*1e6
                 plot_z_2 = plot_data_r_2['Conc']
                 plot_c_2 = ax.scatter(plot_x_2, plot_y_2, c=plot_z_2, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
-                
-                if xtal == 'C1':
-                    plot_data_r_20 =plot_data_r_2.loc[plot_data_r_2['time_pt'] == 1327]
-                    plot_y_20 = plot_data_r_20['Integral_trapz']*1e6
-                    plot_x_20 = plot_data_r_20['dI_dz']*1e6
-                    plot_z_20 = plot_data_r_20['Conc']
-                    plot_c_20 = ax.scatter(plot_x_20, plot_y_20, c=plot_z_20, marker='^', s=20, vmin=vmin, vmax=vmax)
-                    
-                    plot_data_r_20 =plot_data_r_2.loc[plot_data_r_2['time_pt'] == 1207]
-                    plot_y_20 = plot_data_r_20['Integral_trapz']*1e6
-                    plot_x_20 = plot_data_r_20['dI_dz']*1e6
-                    plot_z_20 = plot_data_r_20['Conc']
-                    plot_c_20 = ax.scatter(plot_x_20, plot_y_20, c=plot_z_20, marker='^', s=20, vmin=vmin, vmax=vmax)
-                
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             ax.set_ylim(ylim_r[0], ylim_r[1])
             ax.set_xlim(xlim_r[0], xlim_r[1])
@@ -601,16 +521,11 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_2+str(xtal)+'_008.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
         if xtal_fold_i in [4] :
-            Title = 'Left: D v.s. Conc: Depth'
-            fig, axs = plt.subplots(squeeze=False)
             if xtal == 'C1':
-                # time_drop = -4
-                # whisker_outlier_filename_L = '1L_WhiskerPlot_Outliers_Index'
-                # whisker_outlier_filename_R = '1R_WhiskerPlot_Outliers_Index'
-                # fliersl_min = 1.1067311151472158e-08
-                # fliersr_min = 6.399341619082291e-09
                 time_drop = -1
                 whisker_outlier_filename_L = 'new_Whisker_outlier/1L_WhiskerPlot_Outliers_Index'
                 whisker_outlier_filename_R = 'new_Whisker_outlier/1R_WhiskerPlot_Outliers_Index'
@@ -624,11 +539,6 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 index_r = [index - np.shape(df1r)[0]*(xtal_fold_i-1)-1 for index in index_r]
 
             elif xtal == 'C2':
-                # time_drop = -7
-                # whisker_outlier_filename_L = '2L_WhiskerPlot_Outliers_Index'
-                # whisker_outlier_filename_R = '2R_WhiskerPlot_Outliers_Index'
-                # fliersl_min = 6.478372789542059e-09
-                # fliersr_min = 7.770598193396855e-09
                 time_drop = -1
                 whisker_outlier_filename_L = 'new_Whisker_outlier/2L_WhiskerPlot_Outliers_Index'
                 whisker_outlier_filename_R = 'new_Whisker_outlier/2R_WhiskerPlot_Outliers_Index'
@@ -642,11 +552,6 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 index_r = [index - np.shape(df1r)[0]*(xtal_fold_i-1)-1 for index in index_r]
                 
             elif xtal == 'C3':
-                # time_drop = -3
-                # whisker_outlier_filename_L = '3L_WhiskerPlot_Outliers_Index'
-                # whisker_outlier_filename_R = '3R_WhiskerPlot_Outliers_Index'
-                # fliersl_min = 2.0072033564509945e-08
-                # fliersr_min = 2.2647466274638595e-08
                 time_drop = -1
                 whisker_outlier_filename_L = 'new_Whisker_outlier/3L_WhiskerPlot_Outliers_Index'
                 whisker_outlier_filename_R = 'new_Whisker_outlier/3R_WhiskerPlot_Outliers_Index'
@@ -658,21 +563,14 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 index_r = [index for index in index_r if index in range(np.shape(df1r)[0]*(xtal_fold_i-1),np.shape(df1r)[0]*xtal_fold_i)]
                 index_l = [index - np.shape(df1l)[0]*(xtal_fold_i-1)-1 for index in index_l]
                 index_r = [index - np.shape(df1r)[0]*(xtal_fold_i-1)-1 for index in index_r]
-                            
-            plot_data_l = tables_data_l.drop(tables_data_l.loc[tables_data_l['time_pt'] == t_eval[time_drop]].index)
-            plot_data_l_00 = plot_data_l.drop(plot_data_l.loc[plot_data_l['time_pt'] == t_eval[time_drop-1]].index)
-            plot_data_l_01 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[time_drop]]
-            plot_data_l_02 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[time_drop-1]]
-            # plot_data_l_03 = tables_data_l.loc[tables_data_l['D'] >= fliersl_min]
+            
+            plot_data_l = tables_data_l
             plot_data_l_03 = tables_data_l.iloc[index_l]
-
-            plot_data_r = tables_data_r.drop(tables_data_r.loc[tables_data_r['time_pt'] == t_eval[time_drop]].index)
-            plot_data_r_00 = plot_data_r.drop(plot_data_r.loc[plot_data_r['time_pt'] == t_eval[time_drop-1]].index)
-            plot_data_r_01 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[time_drop]]
-            plot_data_r_02 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[time_drop-1]]
-            # plot_data_r_03 = tables_data_r.loc[tables_data_l['D'] >= fliersr_min]
+            plot_data_r = tables_data_r
             plot_data_r_03 = tables_data_r.iloc[index_r]
-
+            
+            Title = 'Left: D v.s. Conc: Depth'
+            fig, axs = plt.subplots(squeeze=False)
             for i, ax in enumerate(axs.flat):
 
                 plot_y = plot_data_l['Integral_trapz']*1e6
@@ -685,23 +583,18 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z,cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
                 
-                
-                plot_y_0 = plot_data_l_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_l_01['dI_dz']*1e6
-                plot_z_0 = plot_data_l_01['depth']
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='^', vmin=vmin, vmax=vmax)
-
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             fig.colorbar(plot_c, ax=ax, label='Depth [\u03BCm]').ax.tick_params(
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_003.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             Title = 'Right: D v.s. Conc: Depth'
             fig, axs = plt.subplots(squeeze=False)
-            # plot_data_r = tables_data_r
             for i, ax in enumerate(axs.flat):
 
                 plot_y = plot_data_r['Integral_trapz']*1e6
@@ -714,48 +607,30 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z,cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
 
-                plot_y_0 = plot_data_r_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_r_01['dI_dz']*1e6
-                plot_z_0 = plot_data_r_01['depth']
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0,cmap=my_cmap, marker='^', vmin=vmin, vmax=vmax)
-
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             fig.colorbar(plot_c, ax=ax, label='Depth [\u03BCm]').ax.tick_params(
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_006.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             'Left + Right: DNA vs z-direction: Depth'
             fig, axs = plt.subplots(squeeze=False)
             for i, ax in enumerate(axs.flat):
-                plot_y = pd.concat([plot_data_l_00['Conc'], plot_data_r_00['Conc'][::-1]])
-                plot_x = pd.concat([plot_data_l_00['depth'],
-                    plot_data_r_00['depth']+np.max(plot_data_r_00['depth'])])
-                plot_z = pd.concat([plot_data_l_00['depth'],
-                    plot_data_r_00['depth'][::-1]])
+
+                plot_y = pd.concat([plot_data_l['Conc'], plot_data_r['Conc'][::-1]])
+                plot_x = pd.concat([plot_data_l['depth'],
+                    plot_data_r['depth']+np.max(plot_data_r['depth'])])
+                plot_z = pd.concat([plot_data_l['depth'],
+                    plot_data_r['depth'][::-1]])
 
                 length = len(plot_z)
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z, cmap=my_cmap, s=10, vmin=vmin, vmax=vmax)
-                
-                plot_y_0 = pd.concat([plot_data_l_01['Conc'],
-                    plot_data_r_01['Conc'][::-1]])
-                plot_x_0 = pd.concat([plot_data_l_01['depth'],
-                    plot_data_r_01['depth']+np.max(plot_data_r_01['depth'])])
-                plot_z_0 = pd.concat([plot_data_l_01['depth'],
-                    plot_data_r_01['depth'][::-1]])
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='^', s=10, vmin=vmin, vmax=vmax)
-                
-                plot_y_0 = pd.concat([plot_data_l_02['Conc'],
-                    plot_data_r_02['Conc'][::-1]])
-                plot_x_0 = pd.concat([plot_data_l_02['depth'],
-                    plot_data_r_02['depth']+np.max(plot_data_r_02['depth'])])
-                plot_z_0 = pd.concat([plot_data_l_02['depth'],
-                    plot_data_r_02['depth'][::-1]])
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='^', s=10, vmin=vmin, vmax=vmax)
-                
+
             ax.set_ylabel('DNA duplexes/UCN')
             ax.set_xlabel('z-direction [\u03BCm]')
             ax.tick_params(direction="in", length=4, width=3)
@@ -763,6 +638,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_001.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             'Left: RA vs DF: Time'
             Title = 'Left: D v.s. Conc: Time'
@@ -777,21 +654,17 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
 
                 length = len(plot_z)
                 my_cmap = cmap_generation(length)
-                plot_c = ax.scatter(plot_x, plot_y, c=plot_z,
-                                    cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
+                plot_c = ax.scatter(plot_x, plot_y, c=plot_z, cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
                 
-                plot_y_0 = plot_data_l_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_l_01['dI_dz']*1e6
-                plot_z_0 = plot_data_l_01['time_pt']
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0,cmap=my_cmap, marker='^', vmin=vmin, vmax=vmax)
-
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
             fig.colorbar(plot_c, ax=ax, label='Time [sec]').ax.tick_params(
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_004.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             'Right: RA vs DF: Time'
             Title = 'Right: D v.s. Conc: Time'
@@ -808,51 +681,32 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z,cmap=my_cmap, marker='o', vmin=vmin, vmax=vmax)
                 
-                plot_y_0 = plot_data_r_01['Integral_trapz']*1e6
-                plot_x_0 = plot_data_r_01['dI_dz']*1e6
-                plot_z_0 = plot_data_r_01['time_pt'] 
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0,cmap=my_cmap, marker='^', vmin=vmin, vmax=vmax)
-
-            ax.set_ylabel('RA [mmole·cm/(L·sec)]')
-            ax.set_xlabel('DF [mmole/(L·cm)]')
+            ax.set_ylabel('RA [mM·cm/sec]')
+            ax.set_xlabel('DF [mM/cm]')
             ax.tick_params(direction="in", length=4, width=3)
 
             fig.colorbar(plot_c, ax=ax, label='Time [sec]').ax.tick_params(
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_007.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             'Left & Right: DNA vs z-direction: Time'
             fig, axs = plt.subplots(squeeze=False)
             for i, ax in enumerate(axs.flat):
 
-                plot_y = pd.concat([plot_data_l_00['Conc'],
-                    plot_data_r_00['Conc'][::-1]])
-                plot_x = pd.concat([plot_data_l_00['depth'],
-                    plot_data_r_00['depth']+np.max(plot_data_r_00['depth'])])
-                plot_z = pd.concat([plot_data_l_00['time_pt'],
-                    plot_data_r_00['time_pt'][::-1]])
+                plot_y = pd.concat([plot_data_l['Conc'],
+                    plot_data_r['Conc'][::-1]])
+                plot_x = pd.concat([plot_data_l['depth'],
+                    plot_data_r['depth']+np.max(plot_data_r['depth'])])
+                plot_z = pd.concat([plot_data_l['time_pt'],
+                    plot_data_r['time_pt'][::-1]])
 
                 length = len(plot_z)
                 my_cmap = cmap_generation(length)
                 plot_c = ax.scatter(plot_x, plot_y, c=plot_z, cmap=my_cmap, s=10, vmin=vmin, vmax=vmax)
                 
-                plot_y_0 = pd.concat([plot_data_l_01['Conc'],
-                    plot_data_r_01['Conc'][::-1]])
-                plot_x_0 = pd.concat([plot_data_l_01['depth'],
-                    plot_data_r_01['depth']+np.max(plot_data_r_01['depth'])])
-                plot_z_0 = pd.concat([plot_data_l_01['time_pt'],
-                    plot_data_r_01['time_pt'][::-1]])         
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='^', s=10, vmin=vmin, vmax=vmax)
-                
-                plot_y_0 = pd.concat([plot_data_l_02['Conc'],
-                    plot_data_r_02['Conc'][::-1]])
-                plot_x_0 = pd.concat([plot_data_l_02['depth'],
-                    plot_data_r_02['depth']+np.max(plot_data_r_02['depth'])])
-                plot_z_0 = pd.concat([plot_data_l_02['time_pt'],
-                    plot_data_r_02['time_pt'][::-1]])         
-                plot_c_0 = ax.scatter(plot_x_0, plot_y_0, c=plot_z_0, cmap=my_cmap, marker='^', s=10, vmin=vmin, vmax=vmax)
-                                
             ax.set_ylabel('DNA duplexes/UCN')
             ax.set_xlabel('z-direction [\u03BCm]')
             ax.tick_params(direction="in", length=4, width=3)
@@ -860,25 +714,34 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                 length=4, width=3)
             if xtal_fold_i == 4:
                 plt.show()
+                fig.savefig(save_file_path_1+str(xtal)+'_002.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             if xtal == 'C1':
                 Title = 'Anomalous Left'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
 
                 plot_data_1_1_l = tables_data_l.loc[tables_data_l['time_pt'] <= t_eval[2]]
-                a111.plot(plot_data_l['dI_dz']*1e6,
+                ax.plot(plot_data_l['dI_dz']*1e6,
                         plot_data_l['Integral_trapz']*1e6, 'o', color='darkgray',  fillstyle='none')
-                a111.plot(plot_data_1_1_l['dI_dz']*1e6,
-                        plot_data_1_1_l['Integral_trapz']*1e6, 'go', label='t ≤ {0:.0f} sec'.format(t_eval[2]))
+                plot_data_l_1 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-2]]
+                ax.plot(plot_data_l_1['dI_dz']*1e6,
+                        plot_data_l_1['Integral_trapz']*1e6, 'bo', fillstyle='none')
+                
+                plot_data_l_1 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-3]]
+                ax.plot(plot_data_l_1['dI_dz']*1e6,
+                        plot_data_l_1['Integral_trapz']*1e6, 'go', fillstyle='none')
+                
+                plot_data_l_1 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-4]]
+                ax.plot(plot_data_l_1['dI_dz']*1e6,
+                        plot_data_l_1['Integral_trapz']*1e6, 'yo', fillstyle='none')
                 if save_fig_3 == True:
-                    a111.plot(plot_data_l_03['dI_dz']*1e6,
+                    ax.plot(plot_data_l_03['dI_dz']*1e6,
                                 plot_data_l_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
-                a111.plot(plot_data_l_01['dI_dz']*1e6,
-                        plot_data_l_01['Integral_trapz']*1e6, '^', label='Negative trend', color='darkgray',  fillstyle='none')
                 if save_fig_2 == True:
-                    a111.plot([0, 20], [0.3e-7, 1.5e-7], 'r-', label='Max {0:.2e}'.format((1.5e-7-0.3e-7)/20))
-                    a111.plot([0, 40], [0.0e-7, 0.2e-7], 'r-', label='Min {0:.2e}'.format((0.2e-7-0.0e-7)/40))
+                    ax.plot([-5, 20], [0.0e-8, 8e-8], 'r--', label='Max {0:.2e}'.format((8e-8-0e-8)/(20-(-5))))
+                    ax.plot([2, 37], [0.0e-8, 6e-8], 'r--', label='Min {0:.2e}'.format((6e-8-0e-8)/35))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
@@ -886,50 +749,56 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_005.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
                 Title = 'Anomalous Right'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
                 plot_data_1_r = tables_data_r.drop(tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-4]].index)
 
                 plot_data_1_2_r = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-4]]
-                a111.plot(plot_data_r['dI_dz']*1e6,
+                ax.plot(plot_data_r['dI_dz']*1e6,
                         plot_data_r['Integral_trapz']*1e6, 'o', color='darkgray',  fillstyle='none')
+                plot_data_r_1 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-2]]
+                ax.plot(plot_data_r_1['dI_dz']*1e6,
+                        plot_data_r_1['Integral_trapz']*1e6, 'bo', fillstyle='none')
+                
+                plot_data_r_1 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-3]]
+                ax.plot(plot_data_r_1['dI_dz']*1e6,
+                        plot_data_r_1['Integral_trapz']*1e6, 'go', fillstyle='none')
+                
+                plot_data_r_1 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-4]]
+                ax.plot(plot_data_r_1['dI_dz']*1e6,
+                        plot_data_r_1['Integral_trapz']*1e6, 'yo', fillstyle='none')
                 if save_fig_3 == True:
-                    a111.plot(plot_data_r_03['dI_dz']*1e6,
+                    ax.plot(plot_data_r_03['dI_dz']*1e6,
                                 plot_data_r_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
-                a111.plot(plot_data_r_01['dI_dz']*1e6,
-                        plot_data_r_01['Integral_trapz']*1e6, '^', label='Negative trend', color='darkgray',  fillstyle='none')
                 if save_fig_2 == True:
-                    a111.plot([0, 20], [0.0e-7, 1.2e-7], 'r-', label='Max {0:.2e}'.format((1.2e-7-0.0e-7)/20))
-                    a111.plot([0, 50], [0.0e-7, 0.1e-7], 'r-', label='Min {0:.2e}'.format((0.1e-7-0.0e-7)/50))
+                    ax.plot([-2, 28], [0e-8, 8e-8], 'r--', label='Max {0:.2e}'.format((8e-8-0e-8)/(28-(-2))))
+                    ax.plot([9, 49], [0e-8, 6e-8], 'r--', label='Min {0:.2e}'.format((6e-8-0e-8)/(49-9)))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
+                lgd = plt.legend(loc='upper left', bbox_to_anchor=(
+                    1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_008.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             elif xtal == 'C2':
                 Title = 'Anomalous Left'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
-                plot_data_2_0 = tables_data_l.loc[tables_data_l['time_pt']
-                                                >= t_eval[-3]]
-                plot_data_2_1 = tables_data_l.loc[tables_data_l['time_pt'] <= t_eval[2]]
-                a111.plot(plot_data_l['dI_dz']*1e6,
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
+                ax.plot(plot_data_l['dI_dz']*1e6,
                         plot_data_l['Integral_trapz']*1e6, 'o', color='darkgray', fillstyle='none')
-                a111.plot(plot_data_2_0['dI_dz']*1e6,
-                        plot_data_2_0['Integral_trapz']*1e6, 'bo', label='t ≥ {0:.0f} sec'.format(t_eval[-3]))
-                a111.plot(plot_data_2_1['dI_dz']*1e6,
-                        plot_data_2_1['Integral_trapz']*1e6, 'go', label='t ≤ {0:.0f} sec'.format(t_eval[2]))
                 if save_fig_3 == True:
-                    a111.plot(plot_data_l_03['dI_dz']*1e6,
+                    ax.plot(plot_data_l_03['dI_dz']*1e6,
                                 plot_data_l_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
-                a111.plot(plot_data_l_01['dI_dz']*1e6,
-                        plot_data_l_01['Integral_trapz']*1e6, '^', label='Negative trend', color='darkgray',  fillstyle='none')
                 if save_fig_2 == True:
-                    a111.plot([0, 15], [0.0e-8, 7e-8], 'r-', label='Max {0:.2e}'.format((7e-8-0e-8)/15))
-                    a111.plot([0, 14], [0.0e-8, 2e-8], 'r-', label='Min {0:.2e}'.format((2e-8-0.0e-8)/14))
+                    ax.plot([-1, 4], [0.0e-8, 2.5e-8], 'r--', label='Max {0:.2e}'.format((2.5e-8-0e-8)/5))
+                    ax.plot([1, 17], [0.0e-8, 2.5e-8], 'r--', label='Min {0:.2e}'.format((2.5e-8-0.0e-8)/16))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
@@ -937,28 +806,21 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_005.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
                 Title = 'Anomalous Right'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
                 plot_data_2 = tables_data_r
-                plot_data_2_0 = tables_data_r.loc[tables_data_r['time_pt']
-                                                >= t_eval[-3]]
-                plot_data_2_1 = tables_data_r.loc[tables_data_r['time_pt'] <= t_eval[2]]
-                a111.plot(plot_data_r['dI_dz']*1e6,
+                ax.plot(plot_data_r['dI_dz']*1e6,
                         plot_data_r['Integral_trapz']*1e6, 'o', color='darkgray', fillstyle='none')
-                a111.plot(plot_data_2_0['dI_dz']*1e6,
-                        plot_data_2_0['Integral_trapz']*1e6, 'bo', label='t ≥ {0:.0f} sec'.format(t_eval[-3]))
-                a111.plot(plot_data_2_1['dI_dz']*1e6,
-                        plot_data_2_1['Integral_trapz']*1e6, 'go', label='t ≤ {0:.0f} sec'.format(t_eval[2]))
                 if save_fig_3 == True:
-                    a111.plot(plot_data_r_03['dI_dz']*1e6,
+                    ax.plot(plot_data_r_03['dI_dz']*1e6,
                                 plot_data_r_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
-                a111.plot(plot_data_r_01['dI_dz']*1e6,
-                        plot_data_r_01['Integral_trapz']*1e6, '^', label='Negative trend', color='darkgray',  fillstyle='none')
                 if save_fig_2 == True:
-                    a111.plot([0, 15], [0.0e-8, 4.9e-8], 'r-', label='Max {0:.2e}'.format((4.9e-8-0e-8)/15))
-                    a111.plot([0, 14], [0.0e-8, 1.8e-8], 'r-', label='Min {0:.2e}'.format((1.8e-8-0.0e-8)/14))
+                    ax.plot([-1, 5], [0.0e-8, 2.5e-8], 'r--', label='Max {0:.2e}'.format((2.5e-8-0e-8)/6))
+                    ax.plot([1, 18], [0.0e-8, 2.5e-8], 'r--', label='Min {0:.2e}'.format((2.5e-8-0.0e-8)/17))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
@@ -966,28 +828,24 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_008.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
             elif xtal == 'C3':
                 Title = 'Anomalous Left'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
-                # plot_data_3 = tables_data_l
-                plot_data_3_1 = tables_data_l.loc[tables_data_l['time_pt'] <= t_eval[1]]
-                plot_data_3_2 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-3]]
-                a111.plot(plot_data_l['dI_dz']*1e6,
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
+                ax.plot(plot_data_l['dI_dz']*1e6,
                         plot_data_l['Integral_trapz']*1e6, 'o', color='darkgray', fillstyle='none')
-                # a111.plot(plot_data_3_2['dI_dz'],
-                #         plot_data_3_2['Integral_trapz'], 'bo', label='t = {0:.0f} sec'.format(t_eval[-3]))
-                a111.plot(plot_data_l_01['dI_dz']*1e6,
-                        plot_data_l_01['Integral_trapz']*1e6, 'o', color='darkgray',  fillstyle='none')
-                a111.plot(plot_data_3_1['dI_dz']*1e6,
-                        plot_data_3_1['Integral_trapz']*1e6, 'go', label='t ≤ {0:.0f} sec'.format(t_eval[1]))
+                plot_data_l_1 = tables_data_l.loc[tables_data_l['time_pt'] == t_eval[-2]]
+                ax.plot(plot_data_l_1['dI_dz']*1e6,
+                        plot_data_l_1['Integral_trapz']*1e6, 'bo', fillstyle='none')
                 if save_fig_3 == True:
-                    a111.plot(plot_data_l_03['dI_dz']*1e6,
+                    ax.plot(plot_data_l_03['dI_dz']*1e6,
                             plot_data_l_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
                 if save_fig_2 == True:
-                    a111.plot([0, 11], [0.0e-7, 2e-7], 'r-', label='Max {0:.2e}'.format((2e-7-0e-7)/11))
-                    a111.plot([0, 22], [0.0e-7, 1.1e-7], 'r-', label='Min {0:.2e}'.format((1.1e-7-0e-7)/22))
+                    ax.plot([0, 11], [0.0e-7, 2e-7], 'r--', label='Max {0:.2e}'.format((2e-7-0e-7)/11))
+                    ax.plot([0, 23], [0.0e-7, 1.1e-7], 'r--', label='Min {0:.2e}'.format((1.1e-7-0e-7)/23))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
@@ -995,24 +853,24 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_005.svg', format='svg', dpi=400, bbox_inches='tight')
+
 
                 Title = 'Anomalous Right'
-                fig111 = plt.figure(figsize=(3, 4))
-                a111 = fig111.add_axes([0, 0, 1, 1])
+                fig = plt.figure(figsize=(3, 4))
+                ax = fig.add_axes([0, 0, 1, 1])
                 plot_data_3 = tables_data_r
-                plot_data_3_1 = tables_data_r.loc[tables_data_r['time_pt'] <= t_eval[0]]
-                a111.plot(plot_data_r['dI_dz']*1e6,
+                ax.plot(plot_data_r['dI_dz']*1e6,
                         plot_data_r['Integral_trapz']*1e6, 'o', color='darkgray', fillstyle='none')
-                a111.plot(plot_data_r_01['dI_dz']*1e6,
-                        plot_data_r_01['Integral_trapz']*1e6, 'o', color='darkgray',  fillstyle='none')
-                a111.plot(plot_data_3_1['dI_dz']*1e6,
-                        plot_data_3_1['Integral_trapz']*1e6, 'go', label='t ≤ {0:.0f} sec'.format(t_eval[0]))
+                plot_data_r_1 = tables_data_r.loc[tables_data_r['time_pt'] == t_eval[-2]]
+                ax.plot(plot_data_r_1['dI_dz']*1e6,
+                        plot_data_r_1['Integral_trapz']*1e6, 'bo', fillstyle='none')
                 if save_fig_3 == True:
-                    a111.plot(plot_data_l_03['dI_dz']*1e6,
+                    ax.plot(plot_data_l_03['dI_dz']*1e6,
                                 plot_data_l_03['Integral_trapz']*1e6, 'mo', label='Whisker Outliers')
                 if save_fig_2 == True:
-                    a111.plot([0, 11], [0.0e-7, 2.2e-7], 'r-', label='Max {0:.2e}'.format((2.2e-7-0e-7)/11))
-                    a111.plot([0, 20], [0.0e-7, 1.4e-7], 'r-', label='Min {0:.2e}'.format((1.4e-7-0e-7)/20))
+                    ax.plot([-0.5, 10.5], [0.0e-7, 2.2e-7], 'r--', label='Max {0:.2e}'.format((2.2e-7-0e-7)/11))
+                    ax.plot([1.5, 19.5], [0.0e-7, 1.4e-7], 'r--', label='Min {0:.2e}'.format((1.4e-7-0e-7)/18))
                 plt.tick_params(left=False, right=False, labelleft=False,
                                 labelbottom=False, bottom=False)
                 plt.title(Title)
@@ -1020,6 +878,8 @@ for xtal_ii, namei, xtal, Lp in zip(all_Crystal_num, all_name123, all_xtal123, a
                     1, 1.05), shadow=True, mode=None, fancybox=True)
                 if xtal_fold_i == 4:
                     plt.show()
+                    fig.savefig(save_file_path_1+str(xtal)+'_008.svg', format='svg', dpi=400, bbox_inches='tight')
+
     df1l.to_csv(filename1_l, index=False)
     df2l.to_csv(filename2_l, index=False)
     df3l.to_csv(filename3_l, index=False)
