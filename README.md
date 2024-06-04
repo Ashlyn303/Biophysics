@@ -4,7 +4,7 @@ This repository incorporates several tools that enable the analysis of transport
 
 ## Scripts Description
 
-### 1. Image_detect_20_segments.py
+### 1. Image_2D_smoothing_20_segments.py
 
 Process time-lapse confocal images.
 
